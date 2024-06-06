@@ -34,4 +34,4 @@ jobs:
         env:
           NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
           NODE_OPTIONS: --openssl-legacy-provider
-        run: netlify deploy --prod --dir=./build --message "Prod deploy v${{ github.ref }}" --site ${{ secrets.NETLIFY_SITE_ID }}
+        run: netlify deploy --prod --dir=./out --message "Prod deploy v${{ github.ref }}" --site ${{ secrets.NETLIFY_SITE_ID }}
