@@ -7,9 +7,6 @@
 _This is italic_
 
 
-
-![Caption](image.png)
-
 [Understanding Github actions](https://docs.github.com/en/actions/learn-github-actions/understanding-github-actions)
 
 1. List1
