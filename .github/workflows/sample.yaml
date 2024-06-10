@@ -1,10 +1,12 @@
 name: sample work flow file
 on:
-  push
+  push:
+    branches:
+      - "**"
 
 jobs:
   hello-world:
     runs-on: ubuntu-latest
     steps:
-      - uses: action/checkout@v4
+      - uses: actions/checkout@v4
       - run: echo "Hello world"
