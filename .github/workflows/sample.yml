@@ -1,0 +1,12 @@
+name: sample work flow file
+on:
+  push:
+    branches:
+      - "**"
+
+jobs:
+  hello-word:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: action/checkout@v4
+      - run: echo "Hello world"
