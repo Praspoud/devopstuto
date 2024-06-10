@@ -1,0 +1,44 @@
+stages:
+  - build
+  - deploy
+
+variables:
+  NODE_ENV: 'offline'
+  NODE_OPTIONS: '--openssl-legacy-provider'
+
+before_script:
+  - apt-get update -qy
+  - apt-get install -y curl
+  - curl -sL https://deb.nodesource.com/setup_16.x | bash -
+  - apt-get install -y nodejs
+
+cache:
+  paths:
+    - node_modules/
+
+build:
+  stage: build
+  script:
+    - npm ci
+    - NODE_OPTIONS=--openssl-legacy-provider CI=false npm run build
+  artifacts:
+    paths:
+      - public/
+    expire_in: 1 week
+
+deploy:
+  stage: deploy
+  script:
+    - npm install -g netlify-cli
+    - netlify deploy --prod --dir=./public --message "Prod deploy ${CI_COMMIT_REF_NAME}" --site $NETLIFY_SITE_ID
+  only:
+    - main
+    - develop
+  dependencies:
+    - build
+  environment:
+    name: production
+  variables:
+    NETLIFY_AUTH_TOKEN: $NETLIFY_AUTH_TOKEN
+    NETLIFY_SITE_ID: $NETLIFY_SITE_ID
+
