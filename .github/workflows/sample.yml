@@ -10,8 +10,17 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - run: echo "Hello world"
+  good-bye:
+    runs-on: ubuntu-latest
+    needs:
+      - install-nodejs
+    steps:
+      - uses: actions/checkout@v4
+      - run: echo "bye-bye"
   install-nodejs:
     runs-on: ubuntu-latest
+    needs:
+      - hello-word
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -19,3 +28,4 @@ jobs:
           node-version: '20'
       - name: check node version
         run: node -v
+    
